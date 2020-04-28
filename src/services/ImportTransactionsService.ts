@@ -44,17 +44,14 @@ class ImportTransactionsService {
     const categoriesTitles = categoryExists.map(
       (category: Category) => category.title,
     );
-    console.log(categoriesTitles);
     const addCategoryTitles = categories
       .filter(category => !categoriesTitles.includes(category))
       .filter((value, index, self) => self.indexOf(value) === index);
-    console.log(addCategoryTitles);
     const newCategories = categoriesRepository.create(
       addCategoryTitles.map(title => ({
         title,
       })),
     );
-    console.log(newCategories);
     await categoriesRepository.save(newCategories);
 
     const finalCategories = [...newCategories, ...categoryExists];
